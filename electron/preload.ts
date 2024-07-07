@@ -21,4 +21,8 @@ contextBridge.exposeInMainWorld('ipcRenderer', {
 
   // You can expose other APTs you need here.
   // ...
+  checkOS: () => process.platform,
+  openScreenSecurity: () => ipcRenderer.invoke('electronMain:openScreenSecurity'),
+  getScreenAccess: () => ipcRenderer.invoke('electronMain:getScreenAccess'),
+  getScreenSources: () => ipcRenderer.invoke('electronMain:screen:getSources'),
 })
