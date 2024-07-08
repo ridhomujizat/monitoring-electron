@@ -4,7 +4,7 @@ import MainLayout from "@/layout";
 import HomePage from "@/pages/home";
 import ScreenRecord from "@/pages/screen-record";
 import SelfRecord from "@/pages/self-record";
-import TrackingRecord from "@/pages/self-record";
+import TrackingRecord from "@/pages/tracking-record";
 
 export const listRouter = createHashRouter([
   {

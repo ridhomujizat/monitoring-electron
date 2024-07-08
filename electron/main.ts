@@ -44,7 +44,7 @@ function createWindow() {
       preload: path.join(__dirname, "preload.mjs"),
     },
   });
-  win.webContents.openDevTools();
+  // win.webContents.openDevTools();
 
   // Test active push message to Renderer-process.
   win.webContents.on("did-finish-load", () => {
