@@ -6,7 +6,7 @@ import {
 } from "@ant-design/icons";
 import { Button, Modal } from "antd";
 import moment from "moment";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 export default function ScreenRecord() {
   const main: any = window.ipcRenderer;
@@ -25,6 +25,22 @@ export default function ScreenRecord() {
   const mediaRecorderRef = useRef<MediaRecorder>();
   const [chunks, setChunks] = useState([]);
   const [isPlay, setIsPlay] = useState(false);
+  const streamRef = useRef(null); // Reference to the media stream
+
+  useEffect(() => {
+    // Clean up the media stream when the component unmounts
+    return () => {
+      clearStream();
+    };
+  }, []);
+
+  const clearStream = () => {
+      // @ts-ignore
+    if (streamRef.current && streamRef.current?.getTracks()) {
+      // @ts-ignore
+      streamRef.current?.getTracks()?.forEach((track) => track.stop());
+    }
+  };
 
   const startCapture = async () => {
     const listSources = await main.getScreenSources();
@@ -40,6 +56,7 @@ export default function ScreenRecord() {
     mediaRecorderRef.current?.stop();
     // @ts-ignore
     videoRef.current.srcObject = null;
+    clearStream();
     setOnRecored(false);
   };
 
@@ -58,6 +75,8 @@ export default function ScreenRecord() {
     });
     // @ts-ignore
     videoRef.current.srcObject = stream;
+    // @ts-ignore
+    streamRef.current = stream;
 
     // const options = { mimeType: 'video/webm; codecs=vp9' };
     mediaRecorderRef.current = new MediaRecorder(stream);
@@ -130,6 +149,12 @@ export default function ScreenRecord() {
             shape="circle"
             icon={<CloseCircleFilled />}
             onClick={() => {
+              if (isPlay) {
+                setIsPlay(false);
+                // @ts-ignore
+                videoRef.current.src = "";
+                return;
+              }
               setChunks([]);
             }}
           />
