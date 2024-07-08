@@ -1,11 +1,11 @@
-import { createBrowserRouter } from "react-router-dom";
+import { createHashRouter } from "react-router-dom";
 import ErrorPage from "../error-page";
 import MainLayout from "@/layout";
 import HomePage from "@/pages/home";
 import ScreenRecord from "@/pages/screen-record";
 import SelfRecord from "@/pages/self-record";
 
-export const listRouter = createBrowserRouter([
+export const listRouter = createHashRouter([
   {
     path: "/",
     element: <MainLayout />,

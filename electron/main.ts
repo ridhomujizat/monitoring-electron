@@ -1,5 +1,12 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { app, BrowserWindow, desktopCapturer, ipcMain, systemPreferences } from "electron";
+import {
+  app,
+  BrowserWindow,
+  desktopCapturer,
+  ipcMain,
+  protocol,
+  systemPreferences,
+} from "electron";
 import { createRequire } from "node:module";
 import { fileURLToPath } from "node:url";
 import * as util from "electron-util";
